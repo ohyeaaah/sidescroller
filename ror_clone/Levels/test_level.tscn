@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c8tfwu6gdmpvv"]
 
 [ext_resource type="Texture2D" uid="uid://bsvksbqmnchm5" path="res://art/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="1_wqpfx"]
-[ext_resource type="Script" path="res://Levels/entity.gd" id="2_brugl"]
+[ext_resource type="Script" path="res://Characters/entity.gd" id="2_brugl"]
 [ext_resource type="PackedScene" uid="uid://dcimtq0b3fmmj" path="res://Characters/player.tscn" id="2_cyri2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7qarp"]
