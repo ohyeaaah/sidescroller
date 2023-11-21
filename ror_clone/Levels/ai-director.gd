@@ -31,7 +31,12 @@ func change_dir():
 func spawn_manager():
 	#pick random spawn locations inside viewport to spawn enemies
 	#need to change to exlude area around a player
-	var spawn_loc_x = rng.randi_range(player_pos.x - (spawn_area.x), player_pos.x + (spawn_area.x))
+	var spawn_loc_x_left = rng.randi_range(player_pos.x - (spawn_area.x), player_pos.x - (spawn_area.x/2))
+	var spawn_loc_x_right = rng.randi_range(player_pos.x + (spawn_area.x/2), player_pos.x - (spawn_area.x))
+	var spawn_loc_arr = []
+	
+	spawn_loc_arr.append(spawn_loc_x_left)
+	spawn_loc_arr.append(spawn_loc_x_right)
 	
 	for enemy in enemy_list:
 		if (enemy.position.x > (player_pos.x - (spawn_area.x*2))) and (enemy.position.x < (player_pos.x + (spawn_area.x*2))):
@@ -42,7 +47,7 @@ func spawn_manager():
 		var enemy = enemy_type.instantiate()
 		get_parent().get_node("entity").add_child(enemy)
 		
-		enemy.position.x = spawn_loc_x
+		enemy.position.x = spawn_loc_arr[randi() % spawn_loc_arr.size()]
 		#will have to change vertical spawning later to account for flying enemies
 		enemy.position.y = player_pos.y
 		
