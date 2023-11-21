@@ -4,6 +4,10 @@ class_name entity
 @export var speed : float = 200.0
 @export var jump_velocity : float = -150.0
 @export var double_jump_velocity : float = -100.0
+@export var health: float = 100
+
+#var vision = get_world_2d().direct_space_state
+#var fov = get_viewport().size
 
 var direction
 
@@ -35,6 +39,10 @@ func jump(delta):
 			velocity.y = double_jump_velocity
 			has_double_jumped = true
 #handles moving
+
+func entity_check(pos):
+	
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,0 +1,2 @@
+Entity Engine v3 change_log:
+	added health
