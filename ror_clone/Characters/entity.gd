@@ -32,7 +32,7 @@ func move(delta,dir):
 
 #handles jumping 	
 #need to give enemies ability to jump without input 
-func jump(delta):
+func jump():
 		if is_on_floor():
 			velocity.y = jump_velocity
 		elif not has_double_jumped:
