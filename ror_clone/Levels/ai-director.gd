@@ -30,13 +30,13 @@ func change_dir():
 #maybe only call this when an enemy dies, or based on difficulty
 func spawn_manager():
 	#pick random spawn locations inside viewport to spawn enemies
-	var spawn_loc_x = rng.randi_range(player_pos.x - (spawn_area.x/2), player_pos.x + (spawn_area.x/2))
+	#need to change to exlude area around a player
+	var spawn_loc_x = rng.randi_range(player_pos.x - (spawn_area.x), player_pos.x + (spawn_area.x))
 	
 	for enemy in enemy_list:
-		if (enemy.position.x - (spawn_area.x/2) < player_pos.x):
+		if (enemy.position.x > (player_pos.x - (spawn_area.x*2))) and (enemy.position.x < (player_pos.x + (spawn_area.x*2))):
 			prox_enemies += 1 
-		elif (enemy.position.x + (spawn_area.x/2) > player_pos.x):
-			prox_enemies += 1
+	
 			
 	if prox_enemies <= enemy_limit:
 		var enemy = enemy_type.instantiate()
@@ -47,7 +47,10 @@ func spawn_manager():
 		enemy.position.y = player_pos.y
 		
 		enemy_list.append(enemy)
+		print("enemy spawned")
 	
+	prox_enemies = 0
+		
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#first entity in list will always be the player --> get rid of it 
