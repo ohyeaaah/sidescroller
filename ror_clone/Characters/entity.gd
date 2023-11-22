@@ -9,7 +9,7 @@ class_name entity
 #var vision = get_world_2d().direct_space_state
 #var fov = get_viewport().size
 
-var direction
+var direction :Vector2 = Vector2.ZERO
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var has_double_jumped : bool = false
@@ -23,10 +23,13 @@ func move(delta,dir):
 		velocity.y += gravity * delta
 	else:
 		has_double_jumped = false
-	if dir:
-		velocity.x = dir * speed
+		
+
+	direction = Input.get_vector("left", "right", "up", "down")
+	if direction:
+		velocity.x = direction.x * speed
 	else:
-		velocity.x = move_toward(velocity.x, 0 , speed)
+		velocity.x = move_toward(velocity.x, 0, speed)
 		
 	move_and_slide()
 

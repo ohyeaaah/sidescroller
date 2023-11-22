@@ -9,7 +9,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if not direction:
-		direction = rng.randf_range(-1, 1)
+		direction.x = rng.randf_range(-1, 1)
 	else: 
-		direction = null
+		direction.x = 0
 	move(delta, direction)
