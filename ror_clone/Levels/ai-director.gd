@@ -23,17 +23,20 @@ var rng = RandomNumberGenerator.new()
 func change_dir():
 	for enemy in enemy_list:
 		if enemy.position.x > player_pos.x:
-			enemy.direction = - 1
+			enemy.direction.x = - 1
 		else:
-			enemy.direction = 1
+			enemy.direction.x = 1
 
+func difficulty_manager():
+	pass
 #maybe only call this when an enemy dies, or based on difficulty
 func spawn_manager():
 	#pick random spawn locations inside viewport to spawn enemies
 	#need to change to exlude area around a player
-	var spawn_loc_x_left = rng.randi_range(player_pos.x - (spawn_area.x), player_pos.x - (spawn_area.x/2))
-	var spawn_loc_x_right = rng.randi_range(player_pos.x + (spawn_area.x/2), player_pos.x - (spawn_area.x))
-	var spawn_loc_arr = []
+	#need to set health and strength of the enemies spawned based on difficulty
+	var spawn_loc_x_left : int = rng.randi_range(player_pos.x - (spawn_area.x*2), player_pos.x - (spawn_area.x))
+	var spawn_loc_x_right : int = rng.randi_range(player_pos.x + (spawn_area.x*2), player_pos.x - (spawn_area.x))
+	var spawn_loc_arr : Array = []
 	
 	spawn_loc_arr.append(spawn_loc_x_left)
 	spawn_loc_arr.append(spawn_loc_x_right)

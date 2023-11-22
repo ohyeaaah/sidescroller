@@ -1451,6 +1451,7 @@ remote_path = NodePath("../../../Camera2D")
 position = Vector2(243, -2)
 
 [node name="enemy2" parent="entity" instance=ExtResource("4_j7l8i")]
+position = Vector2(-127, 0)
 
 [node name="ai-director" type="Node2D" parent="."]
 script = ExtResource("5_qxucl")

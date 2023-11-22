@@ -6,10 +6,15 @@ class_name entity
 @export var double_jump_velocity : float = -100.0
 @export var health: float = 100
 
+
+#flag for animation switching
+var animation_locked : bool = false
+var attacking_locked : bool = false
+
 #var vision = get_world_2d().direct_space_state
 #var fov = get_viewport().size
 
-var direction
+var direction : Vector2 = Vector2.ZERO
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var has_double_jumped : bool = false
@@ -18,13 +23,31 @@ var has_double_jumped : bool = false
 func _ready():
 	pass # Replace with function body.
 
+func update_animation(animated_sprite):
+	if not animation_locked and attacking_locked == false:
+		if direction.x != 0:
+			animated_sprite.play("run")
+		else:
+			animated_sprite.play("idle")
+
+func update_facing_direction(animated_sprite):
+	if direction.x > 0:
+		animated_sprite.flip_h = false
+	elif direction.x <0:
+		animated_sprite.flip_h = true
+			
+func attack(animated_sprite):
+	if attacking_locked == false:
+		attacking_locked = true
+		animated_sprite.play("attack")
+	
 func move(delta,dir):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	else:
 		has_double_jumped = false
 	if dir:
-		velocity.x = dir * speed
+		velocity.x = dir.x * speed
 	else:
 		velocity.x = move_toward(velocity.x, 0 , speed)
 		
