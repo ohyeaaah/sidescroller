@@ -1,9 +1,10 @@
-[gd_scene load_steps=35 format=3 uid="uid://dcimtq0b3fmmj"]
+[gd_scene load_steps=38 format=3 uid="uid://dcimtq0b3fmmj"]
 
 [ext_resource type="Script" path="res://Characters/player.gd" id="1_abcjh"]
 [ext_resource type="Texture2D" uid="uid://v5v6sm4b68tu" path="res://art/Shoot1.png" id="2_8ad1t"]
 [ext_resource type="Texture2D" uid="uid://bqsv0icv3jqy3" path="res://art/Legacy-Fantasy - High Forest 2.3/Character/Jump-End/Jump-End-Sheet.png" id="3_52r16"]
 [ext_resource type="Texture2D" uid="uid://b1gxaxirel6k5" path="res://art/Legacy-Fantasy - High Forest 2.3/Character/Jump-Start/Jump-Start-Sheet.png" id="4_6nkgc"]
+[ext_resource type="Texture2D" uid="uid://405hiucwuq30" path="res://art/jump1-export.png" id="5_7c20q"]
 [ext_resource type="Texture2D" uid="uid://b0bpt7wbin5iq" path="res://art/Legacy-Fantasy - High Forest 2.3/Character/Jumlp-All/Jump-All-Sheet.png" id="5_ukhwj"]
 [ext_resource type="Texture2D" uid="uid://civmul0pkjh2d" path="res://art/Run1.png" id="6_sqjk7"]
 
@@ -30,6 +31,10 @@ region = Rect2(64, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ms6cd"]
 atlas = ExtResource("3_52r16")
 region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4a57"]
+atlas = ExtResource("5_7c20q")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_33p1d"]
 atlas = ExtResource("4_6nkgc")
@@ -79,13 +84,17 @@ region = Rect2(640, 0, 64, 64)
 atlas = ExtResource("5_ukhwj")
 region = Rect2(704, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cg5sb"]
-atlas = ExtResource("6_sqjk7")
+[sub_resource type="AtlasTexture" id="AtlasTexture_jkr82"]
+atlas = ExtResource("5_7c20q")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1nnpf"]
-atlas = ExtResource("6_sqjk7")
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vtch"]
+atlas = ExtResource("5_7c20q")
 region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgdri"]
+atlas = ExtResource("5_7c20q")
+region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y5t80"]
 atlas = ExtResource("6_sqjk7")
@@ -128,7 +137,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_y7148")
 }],
-"loop": true,
+"loop": false,
 "name": &"idle",
 "speed": 10.0
 }, {
@@ -145,6 +154,14 @@ animations = [{
 "loop": true,
 "name": &"jump_end",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4a57")
+}],
+"loop": false,
+"name": &"jump_end1",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -189,11 +206,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cg5sb")
+"texture": SubResource("AtlasTexture_jkr82")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1nnpf")
+"texture": SubResource("AtlasTexture_1vtch")
 }, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgdri")
+}],
+"loop": false,
+"name": &"jump_start1",
+"speed": 5.0
+}, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_y5t80")
 }, {
@@ -212,9 +237,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pw52r")
 }],
-"loop": true,
+"loop": false,
 "name": &"run",
-"speed": 10.0
+"speed": 12.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gxuta"]
@@ -229,10 +254,8 @@ double_jump_velocity = -170.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-16, -19)
 sprite_frames = SubResource("SpriteFrames_h5sl0")
-animation = &"attack"
+animation = &"idle"
 autoplay = "idle"
-frame = 1
-frame_progress = 1.0
 centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

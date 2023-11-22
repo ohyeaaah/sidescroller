@@ -18,6 +18,7 @@ var direction : Vector2 = Vector2.ZERO
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var has_double_jumped : bool = false
+var in_air : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -55,14 +56,20 @@ func move(delta,dir):
 
 #handles jumping 	
 #need to give enemies ability to jump without input 
-func jump():
+func jump(animated_sprite):
+		animated_sprite.play("jump_start1")
+		animation_locked = true
+		in_air = true
 		if is_on_floor():
 			velocity.y = jump_velocity
 		elif not has_double_jumped:
 			velocity.y = double_jump_velocity
 			has_double_jumped = true
 #handles moving
-
+func land(animated_sprite):
+	animated_sprite.play("jump_end1")
+	in_air = false
+	
 func entity_check(pos):
 	
 	pass
