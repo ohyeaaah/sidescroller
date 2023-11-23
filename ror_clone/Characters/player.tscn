@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dcimtq0b3fmmj"]
+[gd_scene load_steps=39 format=3 uid="uid://dcimtq0b3fmmj"]
 
 [ext_resource type="Script" path="res://Characters/player.gd" id="1_abcjh"]
 [ext_resource type="Texture2D" uid="uid://v5v6sm4b68tu" path="res://art/Shoot1.png" id="2_8ad1t"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://405hiucwuq30" path="res://art/jump1-export.png" id="5_7c20q"]
 [ext_resource type="Texture2D" uid="uid://b0bpt7wbin5iq" path="res://art/Legacy-Fantasy - High Forest 2.3/Character/Jumlp-All/Jump-All-Sheet.png" id="5_ukhwj"]
 [ext_resource type="Texture2D" uid="uid://civmul0pkjh2d" path="res://art/Run1.png" id="6_sqjk7"]
+[ext_resource type="PackedScene" uid="uid://drpdslidp16n1" path="res://bullet.tscn" id="8_5sp2x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6smdp"]
 atlas = ExtResource("2_8ad1t")
@@ -262,5 +263,11 @@ centered = false
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_gxuta")
 one_way_collision_margin = 0.0
+
+[node name="Sprite2D" parent="." instance=ExtResource("8_5sp2x")]
+visible = false
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(12, 1)
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

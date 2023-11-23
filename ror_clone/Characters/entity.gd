@@ -25,7 +25,7 @@ func _ready():
 	pass # Replace with function body.
 
 func update_animation(animated_sprite):
-	if not animation_locked and attacking_locked == false:
+	if not animation_locked and not attacking_locked:
 		if direction.x != 0:
 			animated_sprite.play("run")
 		else:
@@ -37,11 +37,21 @@ func update_facing_direction(animated_sprite):
 	elif direction.x <0:
 		animated_sprite.flip_h = true
 			
-func attack(animated_sprite):
+func attack_melee(animated_sprite):
 	if attacking_locked == false:
 		attacking_locked = true
 		animated_sprite.play("attack")
-	
+
+const bulletpath = preload ("res://bullet.tscn")
+var bullet = bulletpath.instantiate()
+
+func attack_ranged(animated_sprite):
+	if attacking_locked == false:
+		animated_sprite.play("attack")
+		get_parent().add_child(bullet)
+		bullet.position = $Marker2D.global_position
+		bullet.velocity = Vector2(bullet.speed, 0)
+		attacking_locked = true
 func move(delta,dir):
 	if not is_on_floor():
 		velocity.y += gravity * delta
