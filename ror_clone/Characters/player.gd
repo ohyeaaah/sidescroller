@@ -5,8 +5,9 @@ extends entity
 
 func _on_animated_sprite_2d_animation_finished():
 	if (animated_sprite.animation == "jump_start1"):
-		if is_on_floor:
-			land(animated_sprite)
+		land(animated_sprite)
+	if(animated_sprite.animation == "jump_end1"):
+		print("done landing")
 	if (animated_sprite.animation == "attack"):
 		attacking_locked = false
 		animation_locked = false
@@ -18,6 +19,7 @@ func _physics_process(delta):
 	direction = Input.get_vector("left", "right", "up", "down")
 	move(delta, direction)
 	if Input.is_action_just_pressed("jump"):
+		print("jump")
 		jump(animated_sprite)
 	if Input.is_action_pressed("click"):
 		attack_ranged(animated_sprite)
@@ -28,6 +30,6 @@ func _physics_process(delta):
 	update_animation(animated_sprite)
 	update_facing_direction(animated_sprite)
 	
-
-		
+#jump, shoot, double jump
+#jump calling land while double jump
 

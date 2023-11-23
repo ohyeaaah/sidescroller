@@ -180,7 +180,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"dash1",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -210,7 +210,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"jump_end1",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -265,7 +265,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"jump_start1",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -303,7 +303,7 @@ double_jump_velocity = -170.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-16, -19)
 sprite_frames = SubResource("SpriteFrames_h5sl0")
-animation = &"dash1"
+animation = &"jump_end1"
 autoplay = "idle"
 centered = false
 

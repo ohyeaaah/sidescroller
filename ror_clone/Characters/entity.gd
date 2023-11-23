@@ -10,6 +10,7 @@ class_name entity
 #flag for animation switching
 var animation_locked : bool = false
 var attacking_locked : bool = false
+var jump_locked : bool = false
 
 #var vision = get_world_2d().direct_space_state
 #var fov = get_viewport().size
@@ -19,6 +20,9 @@ var direction : Vector2 = Vector2.ZERO
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var has_double_jumped : bool = false
 var in_air : bool = false
+
+const bulletpath = preload ("res://bullet.tscn")
+var bullet = bulletpath.instantiate()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,17 +48,18 @@ func attack_melee(animated_sprite):
 		attacking_locked = true
 		animated_sprite.play("attack")
 
-const bulletpath = preload ("res://bullet.tscn")
-var bullet = bulletpath.instantiate()
-
 func attack_ranged(animated_sprite):
-	if attacking_locked == false:
+	if (attacking_locked == false):
+		attacking_locked = true
+		animation_locked = true
 		animated_sprite.play("attack")
 		get_parent().add_child(bullet)
 		bullet.position = $Marker2D.global_position
-		bullet.velocity = Vector2(bullet.speed, 0)
-		attacking_locked = true
-		animation_locked = true
+		if animated_sprite.flip_h == false:
+			bullet.velocity = Vector2(bullet.speed, 0)
+		if animated_sprite.flip_h == true:
+			bullet.velocity = Vector2(bullet.speed * -1, 0)
+		
 func move(delta,dir):
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -71,6 +76,7 @@ func move(delta,dir):
 #need to give enemies ability to jump without input 
 func jump(animated_sprite):
 		animated_sprite.play("jump_start1")
+		jump_locked = true
 		animation_locked = true
 		in_air = true
 		if is_on_floor():
@@ -80,9 +86,12 @@ func jump(animated_sprite):
 			has_double_jumped = true
 #handles moving
 func land(animated_sprite):
+	attacking_locked = false
+	animation_locked = true
 	animated_sprite.play("jump_end1")
 	in_air = false
-	animation_locked = true
+	print("land")
+	print(attacking_locked)
 
 func player_skill_1(animated_sprite):
 	animated_sprite.play("dash1")
