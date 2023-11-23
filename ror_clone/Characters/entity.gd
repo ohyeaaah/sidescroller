@@ -2,10 +2,10 @@ extends CharacterBody2D
 class_name entity
 
 @export var speed : float = 200.0
-@export var jump_velocity : float = -150.0
+@export var jump_velocity : float = 150.0
 @export var double_jump_velocity : float = -100.0
 @export var health: float = 100
-
+@export var dash_velocity : float = -150
 
 #flag for animation switching
 var animation_locked : bool = false
@@ -28,15 +28,17 @@ func update_animation(animated_sprite):
 	if not animation_locked and not attacking_locked:
 		if direction.x != 0:
 			animated_sprite.play("run")
+			in_air = false
 		else:
 			animated_sprite.play("idle")
+			in_air = false
 
 func update_facing_direction(animated_sprite):
 	if direction.x > 0:
 		animated_sprite.flip_h = false
 	elif direction.x <0:
 		animated_sprite.flip_h = true
-			
+
 func attack_melee(animated_sprite):
 	if attacking_locked == false:
 		attacking_locked = true
@@ -52,6 +54,7 @@ func attack_ranged(animated_sprite):
 		bullet.position = $Marker2D.global_position
 		bullet.velocity = Vector2(bullet.speed, 0)
 		attacking_locked = true
+		animation_locked = true
 func move(delta,dir):
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -79,7 +82,16 @@ func jump(animated_sprite):
 func land(animated_sprite):
 	animated_sprite.play("jump_end1")
 	in_air = false
+	animation_locked = true
+
+func player_skill_1(animated_sprite):
+	animated_sprite.play("dash1")
+	animation_locked = true
+	velocity.y = dash_velocity
+	velocity.x = dash_velocity
 	
+	in_air = true
+
 func entity_check(pos):
 	
 	pass
